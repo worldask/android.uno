@@ -117,7 +117,7 @@ var Pile = cc.Layer.extend({
 				posTo = cc.p((gc_size.height +  pileWidth) / -2 + gc_cardGap * i, gc_cardHeight / 5);
 				break;
 			case 180:
-				posTo = cc.p((gc_size.width +  pileWidth) /　-2 + gc_cardGap * i, gc_size.height * -1 + gc_cardHeight / 5);
+				posTo = cc.p((gc_size.width +  pileWidth) / -2 + gc_cardGap * i, gc_size.height * -1 + gc_cardHeight / 5);
 				break;
 			case 270:
 				posTo = cc.p((gc_size.height -  pileWidth) / 2 + gc_cardGap * i, (gc_size.width) * -1 + gc_cardHeight / 5);
