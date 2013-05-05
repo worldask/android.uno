@@ -305,8 +305,11 @@ var Play = cc.Class.extend({
 			card.removeFromParent(true);
 			this.tableScene.getChildren()[0].btnDraw.setEnable(false);
 			
+			// 当前玩家剩余的牌
+			var cardLeft = this.playerCurrent.pile.getChildrenCount();
+			
 			// 如果是转色牌，跳出拾色器，并退出当前方法
-			if (Math.abs(card.number) == 13 || Math.abs(card.number) == 14) {
+			if (cardLeft > 0 && (Math.abs(card.number) == 13 || Math.abs(card.number) == 14)) {
 				if (this.playerCurrent.isHuman === true) {
 					this.cardCurrent = [card.color, card.number];
 					this.tableScene.getChildren()[0].colorPicker.show(true);
@@ -323,8 +326,6 @@ var Play = cc.Class.extend({
 			}
 			
 			// 检查当前玩家剩余的牌
-			var cardLeft = this.playerCurrent.pile.getChildrenCount();
-			
 			if (cardLeft <= 1) {
 				var message = new Message();
 				
