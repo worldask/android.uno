@@ -64,7 +64,8 @@ var Button = cc.Layer.extend({
 					&& touch[0]._point.y > pos.y - size.height / 2 && touch[0]._point.y < pos.y + size.height / 2) {
 				if (this.type == s_textButton1) {
 					// draw按钮事件
-					cc.Director.getInstance().getRunningScene().getChildren()[0].play.drawCard();
+					// cc.Director.getInstance().getRunningScene().getChildren()[0].play.drawCard();
+					cc.Director.getInstance().getRunningScene().getChildren()[0].play.oneHandAuto();
 				} else if (this.type == s_textButton2) {
 					// pass按钮事件
 					cc.Director.getInstance().getRunningScene().getChildren()[0].play.next();

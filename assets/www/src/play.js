@@ -226,13 +226,16 @@ var Play = cc.Class.extend({
 	    	}
     	}
     },
-	// 自动打牌
-	oneHandAuto : function() {
+	// 自动打牌，flagDrawed表示当前玩家是否已经抓过牌
+	oneHandAuto : function(flagDrawed) {
 		var result = false;
-		// 不可点击，按钮不可用
-		this.tableScene.getChildren()[0].setTouchEnabled(false);
-		this.tableScene.getChildren()[0].btnDraw.setEnable(false);
-		this.tableScene.getChildren()[0].btnPass.setEnable(false);
+		
+		if (flagDrawed !== true) {
+			// 不可点击，按钮不可用
+			this.tableScene.getChildren()[0].setTouchEnabled(false);
+			this.tableScene.getChildren()[0].btnDraw.setEnable(false);
+			this.tableScene.getChildren()[0].btnPass.setEnable(false);
+		}
 		
 		this.playerCurrent.autoSelect(this.cardCurrent);
 		var card = this.playerCurrent.getSelected();
@@ -241,10 +244,18 @@ var Play = cc.Class.extend({
 		if (card != null) {
 			this.outCard(card);
 		} else {
-			// 没有可打的牌，从牌堆抓一张牌
-			this.drawCard(this.playerCurrent, 1);
-			
-			// 再检查有没可打的牌
+			// 是否已抓过牌
+			if (flagDrawed === true) {
+				// 下一玩家
+				setTimeout(function(){cc.Director.getInstance().getRunningScene().getChildren()[0].play.next();}, 1000);
+			} else {
+				// 没有可打的牌，从牌堆抓一张牌
+				this.drawCard(this.playerCurrent, 1);
+				
+				// 再检查有没可打的牌
+				this.oneHandAuto(true);
+			}
+			/*
 			this.playerCurrent.autoSelect(this.cardCurrent);
 			card = this.playerCurrent.getSelected();
 			if (card != null) {
@@ -252,7 +263,7 @@ var Play = cc.Class.extend({
 			} else {
 				// 下一玩家
 				setTimeout(function(){cc.Director.getInstance().getRunningScene().getChildren()[0].play.next();}, 1000);
-			}
+			}*/
 		}
 		
 		return result;
